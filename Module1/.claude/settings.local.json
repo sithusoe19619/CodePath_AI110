@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python day1.py)",
+      "Bash(python3 day1.py)"
+    ]
+  }
+}

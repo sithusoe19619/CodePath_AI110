@@ -1,26 +1,28 @@
-def calculate_cart_total(items, discount_percent=0):
-    """
-    Calculate the total cost of a shopping cart with an optional discount.
+def calculate_cart_total(cart, discount_percent=0):
+    """Calculate shopping cart total with an optional discount.
 
     Args:
-        items: list of dicts with 'price' and 'quantity' keys
-        discount_percent: discount percentage (0-100), defaults to 0
+        cart: list of dicts with 'price' and 'quantity' keys.
+        discount_percent: discount to apply (0-100).
 
     Returns:
-        float: final total after discount
+        A dict with 'subtotal', 'discount', and 'total'.
     """
-    subtotal = sum(item['price'] * item['quantity'] for item in items)
-    discount_amount = subtotal * (discount_percent / 100)
-    return subtotal - discount_amount
+    subtotal = sum(item["price"] * item["quantity"] for item in cart)
+    discount = round(subtotal * (discount_percent / 100), 2)
+    total = round(subtotal - discount, 2)
+    return {"subtotal": subtotal, "discount": discount, "total": total}
 
 
 # Example usage
 if __name__ == "__main__":
     cart = [
-        {'name': 'Apple', 'price': 1.50, 'quantity': 4},
-        {'name': 'Bread', 'price': 3.99, 'quantity': 1},
-        {'name': 'Milk',  'price': 2.49, 'quantity': 2},
+        {"name": "Shirt", "price": 25.99, "quantity": 2},
+        {"name": "Pants", "price": 45.50, "quantity": 1},
+        {"name": "Socks", "price": 8.99, "quantity": 3},
     ]
 
-    total = calculate_cart_total(cart, discount_percent=10)
-    print(f"Total after 10% discount: ${total:.2f}")
+    result = calculate_cart_total(cart, discount_percent=15)
+    print(f"Subtotal: ${result['subtotal']:.2f}")
+    print(f"Discount: -${result['discount']:.2f}")
+    print(f"Total: ${result['total']:.2f}")
